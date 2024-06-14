@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Početna Stranica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Modern font */
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4; /* Light grey background for less strain on eyes */
+        }
+        table {
+            width: 100%; /* Full-width table */
+            border-collapse: collapse; /* No double borders */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow around the table */
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd; /* Light grey border for each cell */
+            text-align: left; /* Align text to the left */
+        }
+        th {
+            background-color: #4CAF50; /* Darker background for headers */
+            color: white; /* White text color */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Zebra striping for rows */
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 1.5em;
+            padding: 5px;
+        }
+        a:hover {
+            color: darkred;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{navbar :: navbar}"></div>
+<h1>Lista Recepata</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Naslov</th>
+        <th>Opis</th>
+        <th>Sastojci</th>
+        <th>Postupak</th>
+        <th>Vrijeme Pripreme</th>
+        <th>Akcije</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recept : ${recepti}">
+        <td th:text="${recept.naslov}"></td>
+        <td th:text="${recept.opis}"></td>
+        <td th:text="${recept.sastojci}"></td>
+        <td th:text="${recept.postupak}"></td>
+        <td th:text="${recept.vrijemePripreme}"></td>
+        <td>
+            <a th:href="@{/recepti/uredi/{id}(id=${recept.receptId})}" title="Uredi">&#x270E;</a>
+            <a th:href="@{/recepti/izbrisi/{id}(id=${recept.receptId})}"
+               onclick="return confirm('Jeste li sigurni da želite izbrisati ovaj recept?');" title="Izbriši">&#x274C;</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
